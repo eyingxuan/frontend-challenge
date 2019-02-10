@@ -8,14 +8,17 @@ class ButtonCourse extends React.Component {
     
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.tooManyClose = this.tooManyClose.bind(this);
     this.handleAddRemove = this.handleAddRemove.bind(this);
     
     this.state = {
       show: false,
+      tooMany: false
     };
 
     this.courseInfo = this.props.courseInfo;
     this.courseCart = this.props.courseCart;
+    
 
   }
 
@@ -23,6 +26,10 @@ class ButtonCourse extends React.Component {
 
   handleClose() {
     this.setState({ show: false });
+  }
+
+  tooManyClose() {
+    this.setState({tooMany: false});
   }
 
   handleShow() {
@@ -33,6 +40,9 @@ class ButtonCourse extends React.Component {
 
   handleAddRemove() {
     this.setState({ show: false });
+    if (!this.courseCart.has(JSON.stringify(this.courseInfo)) && this.courseCart.size === 7) {
+      return this.setState({tooMany: true});
+    }
     this.props.updater(this.courseInfo);
 
   }
@@ -60,6 +70,16 @@ class ButtonCourse extends React.Component {
               {this.courseCart.has(JSON.stringify(this.courseInfo)) ? "Remove from cart" : "Add to cart"}
             </Button>
           </Modal.Footer>
+        </Modal>
+
+        <Modal show={this.state.tooMany} onHide={this.tooManyClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Oooops!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            You are taking too many classes!
+          </Modal.Body>
+          
         </Modal>
       </>
     )

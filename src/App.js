@@ -15,7 +15,6 @@ class App extends Component {
     };
     
     this.updateState = (course) => {
-      // console.log(this.state.courseCart);
       let eqv = JSON.stringify(course);
       if (this.state.courseCart.has(eqv)) {
         let temp = this.state.courseCart;

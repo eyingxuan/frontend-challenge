@@ -1,6 +1,7 @@
 import React from 'react'
 import ButtonCourse from './ButtonCourse';
-
+import Button from 'react-bootstrap/Button';
+import {Link} from 'react-router-dom';
 
 class Cart extends React.Component {
   constructor(props) {
@@ -39,6 +40,10 @@ class Cart extends React.Component {
               <ButtonCourse courseInfo={ JSON.parse(x) } updater={this.props.updater} styleB={{width: '100%', marginBottom: '0.3em'}} courseCart = {this.state.courseCart} inCart={true} key={x}/>
             )))
           }
+          <Link to={{pathname: "/subRec", state: this.state.courseCart}}>
+            <Button variant="primary"> Submit </Button>
+          </Link>
+          
         </div>
       </>
     )
